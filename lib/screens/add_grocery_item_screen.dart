@@ -38,7 +38,7 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
     final newItem = await formProvider.saveItem();
 
     if (newItem != null) {
-      getIt<GroceryListProvider>().addItem(newItem);
+      // getIt<GroceryListProvider>().addItem(newItem);
       Navigator.of(context).pop();
     } else {
       // TODO: Show an error
@@ -69,50 +69,52 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
       appBar: AppBar(
         title: Text("Add Item"),
         actions: [
-          formProvider.isProcessing
-              ? SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
-                  ),
-                )
-              : TextButton(
-                  onPressed: _handleSave,
-                  child: Text(
-                    "Save",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+          TextButton(
+            onPressed: formProvider.isProcessing ? null : _handleSave,
+            child: Text(
+              "Save",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
       body: Form(
         key: formProvider.form,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: Stack(
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Item Name",
-                ),
-                autofocus: true,
-                onChanged: (value) {
-                  formProvider.setName(value);
-                },
-                validator: formProvider.validateName,
+              Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Item Name",
+                    ),
+                    autofocus: true,
+                    initialValue: formProvider.groceryItem.name,
+                    onChanged: (value) {
+                      formProvider.setName(value);
+                    },
+                    validator: formProvider.validateName,
+                  ),
+                  SelectFormField(
+                    type: SelectFormFieldType.dropdown, // or can be dialog
+                    initialValue: formProvider.groceryItem.categoryValue,
+                    labelText: 'Category',
+                    items: _categories,
+                    onChanged: (val) {
+                      formProvider
+                          .setCategory(GroceryItem.categoryFromString(val));
+                    },
+                  ),
+                ],
               ),
-              SelectFormField(
-                type: SelectFormFieldType.dropdown, // or can be dialog
-                initialValue: 'misc',
-                labelText: 'Category',
-                items: _categories,
-                onChanged: (val) {
-                  formProvider.setCategory(GroceryItem.categoryFromString(val));
-                },
-              ),
+              if (formProvider.isProcessing)
+                Center(
+                  child: CircularProgressIndicator(),
+                )
             ],
           ),
         ),

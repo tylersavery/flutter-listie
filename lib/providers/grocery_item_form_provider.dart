@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:listie/main.dart';
 import 'package:listie/models/grocery_item.dart';
 import 'package:listie/services/grocery_item_service.dart';
+import 'package:listie/providers/grocery_list_provider.dart';
 
 abstract class GroceryItemFormProvider extends ChangeNotifier {
   GroceryItem _groceryItem = GroceryItem();
@@ -15,6 +17,7 @@ abstract class GroceryItemFormProvider extends ChangeNotifier {
 
   // Operations
   void clearItem();
+  void setItem(GroceryItem item);
   void loadItem(GroceryItem item);
   Future<GroceryItem?> saveItem();
 
@@ -31,6 +34,12 @@ class GroceryItemFormProviderImplementation extends GroceryItemFormProvider {
 
   void handleUpdate() {
     this.notifyListeners();
+  }
+
+  @override
+  void setItem(GroceryItem item) {
+    this._groceryItem = item;
+    this.handleUpdate();
   }
 
   @override
@@ -64,10 +73,19 @@ class GroceryItemFormProviderImplementation extends GroceryItemFormProvider {
     _isProcessing = true;
     this.handleUpdate();
 
+    bool isNew = false;
+    if (this._groceryItem.id == null) {
+      isNew = true;
+    }
+
     final newGroceryItem = await groceryItemService.create(
       this._groceryItem.name,
       this._groceryItem.category,
     );
+
+    if (isNew) {
+      getIt<GroceryListProvider>().addItem(newGroceryItem);
+    }
 
     _isProcessing = false;
 

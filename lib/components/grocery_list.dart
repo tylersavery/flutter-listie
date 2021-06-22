@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listie/components/empty_list_indicator.dart';
 import 'package:listie/components/grocery_item_card.dart';
 import 'package:listie/main.dart';
-import 'package:listie/models/grocery_item.dart';
 import 'package:listie/providers/grocery_list_provider.dart';
-import 'package:listie/services/grocery_item_service.dart';
 
 class GroceryList extends StatefulWidget {
   final Function handleAddItem;
@@ -59,6 +57,7 @@ class _GroceryListState extends State<GroceryList> {
       child: ListView.builder(
         itemCount: items.length,
         itemBuilder: (ctx, index) {
+          final temp = listProvider.groupedItems;
           final item = items[index];
           return GroceryItemCard(groceryItem: item);
         },
