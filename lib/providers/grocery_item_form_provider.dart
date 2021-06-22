@@ -3,6 +3,7 @@ import 'package:listie/main.dart';
 import 'package:listie/models/grocery_item.dart';
 import 'package:listie/services/grocery_item_service.dart';
 import 'package:listie/providers/grocery_list_provider.dart';
+import 'package:listie/services/toast_service.dart';
 
 abstract class GroceryItemFormProvider extends ChangeNotifier {
   GroceryItem _groceryItem = GroceryItem();
@@ -84,7 +85,10 @@ class GroceryItemFormProviderImplementation extends GroceryItemFormProvider {
     );
 
     if (isNew) {
+      ToastService.success("${newGroceryItem.name} Added");
       getIt<GroceryListProvider>().addItem(newGroceryItem);
+    } else {
+      ToastService.success("${newGroceryItem.name} Updated");
     }
 
     _isProcessing = false;

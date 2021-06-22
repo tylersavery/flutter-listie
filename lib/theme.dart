@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ThemeColors {
-  static const primary = Colors.deepOrange;
+  static const primary = Colors.teal;
 
   static const text = Colors.black87;
   static const textLight = Colors.black54;
+
+  static const success = Colors.green;
+  static const danger = Colors.red;
 }
 
 class ThemeText {

@@ -9,7 +9,7 @@ abstract class GroceryListProvider extends ChangeNotifier {
 
   // Getters
   List<GroceryItem> get items;
-  List<Map<String, dynamic>> get groupedItems;
+  Map<Category?, List<GroceryItem>> get groupedItems;
 
   // Operations
   void setItems(List<GroceryItem> items);
@@ -33,11 +33,10 @@ class GroceryListProviderImplementation extends GroceryListProvider {
   List<GroceryItem> get items => _items;
 
   @override
-  List<Map<String, dynamic>> get groupedItems {
+  Map<Category?, List<GroceryItem>> get groupedItems {
     final group =
         groupBy(this._items, (item) => (item as GroceryItem).category);
-    print(group);
-    return [];
+    return group;
   }
 
   @override

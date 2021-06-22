@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listie/main.dart';
 import 'package:listie/models/grocery_item.dart';
 import 'package:listie/providers/grocery_item_form_provider.dart';
-import 'package:listie/providers/grocery_list_provider.dart';
+import 'package:listie/services/toast_service.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 class AddGroceryItemScreen extends StatefulWidget {
@@ -38,11 +38,9 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
     final newItem = await formProvider.saveItem();
 
     if (newItem != null) {
-      // getIt<GroceryListProvider>().addItem(newItem);
       Navigator.of(context).pop();
     } else {
-      // TODO: Show an error
-      print("ERRORR");
+      ToastService.error("A problem occurred");
     }
   }
 
@@ -61,7 +59,7 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
     final List<Map<String, dynamic>> _categories = categories.map((category) {
       return {
         'value': GroceryItem.stringFromCategory(category),
-        'label': GroceryItem.stringFromCategory(category),
+        'label': GroceryItem.stringFromCategory(category)!.toUpperCase(),
       };
     }).toList();
 

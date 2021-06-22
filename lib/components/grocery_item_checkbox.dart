@@ -3,11 +3,11 @@ import 'package:listie/models/grocery_item.dart';
 
 class GroceryItemCheckbox extends StatefulWidget {
   final GroceryItem groceryItem;
+  final Function onUpdate;
 
-  const GroceryItemCheckbox({
-    Key? key,
-    required this.groceryItem,
-  }) : super(key: key);
+  const GroceryItemCheckbox(
+      {Key? key, required this.groceryItem, required this.onUpdate})
+      : super(key: key);
 
   @override
   _GroceryItemCheckboxState createState() => _GroceryItemCheckboxState();
@@ -20,6 +20,7 @@ class _GroceryItemCheckboxState extends State<GroceryItemCheckbox> {
       onPressed: () {
         widget.groceryItem.purchased = !widget.groceryItem.purchased;
         setState(() {});
+        widget.onUpdate();
       },
       icon: Icon(
         widget.groceryItem.purchased

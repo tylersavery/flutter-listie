@@ -9,11 +9,11 @@ import 'package:listie/main.dart';
 
 class GroceryItemCard extends StatefulWidget {
   final GroceryItem groceryItem;
+  final Function onUpdate;
 
-  const GroceryItemCard({
-    Key? key,
-    required this.groceryItem,
-  }) : super(key: key);
+  const GroceryItemCard(
+      {Key? key, required this.groceryItem, required this.onUpdate})
+      : super(key: key);
 
   @override
   _GroceryItemCardState createState() => _GroceryItemCardState();
@@ -25,6 +25,7 @@ class _GroceryItemCardState extends State<GroceryItemCard> {
 
     await Navigator.of(context).pushNamed(AddGroceryItemScreen.routeName);
     setState(() {});
+    widget.onUpdate();
   }
 
   @override
@@ -69,18 +70,21 @@ class _GroceryItemCardState extends State<GroceryItemCard> {
                       widget.groceryItem.name,
                       style: ThemeText.bodyText,
                     ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      widget.groceryItem.categoryLabel,
-                      style: ThemeText.caption,
-                    ),
+                    // SizedBox(
+                    //   height: 4,
+                    // ),
+                    // Text(
+                    //   widget.groceryItem.categoryLabel,
+                    //   style: ThemeText.caption,
+                    // ),
                   ],
                 ),
               ),
               GroceryItemCheckbox(
                 groceryItem: widget.groceryItem,
+                onUpdate: () {
+                  widget.onUpdate();
+                },
               ),
             ],
           ),
