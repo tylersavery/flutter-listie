@@ -12,6 +12,7 @@ abstract class GroceryListProvider extends ChangeNotifier {
   Map<Category?, List<GroceryItem>> get groupedItems;
 
   // Operations
+  Future<void> fetchItems();
   void setItems(List<GroceryItem> items);
   void addItem(GroceryItem item);
   void removeItem(GroceryItem item);
@@ -23,6 +24,10 @@ class GroceryListProviderImplementation extends GroceryListProvider {
   }
 
   Future<void> _init() async {
+    this.fetchItems();
+  }
+
+  Future<void> fetchItems() async {
     final items = await groceryItemService.list();
     this.setItems(items);
     this.ready = true;
@@ -55,6 +60,7 @@ class GroceryListProviderImplementation extends GroceryListProvider {
   void removeItem(GroceryItem item) {
     final index = _items.indexWhere((element) => element.id == item.id);
     _items.removeAt(index);
+    groceryItemService.deleteItem(item);
     notifyListeners();
   }
 }

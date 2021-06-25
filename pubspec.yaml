@@ -32,6 +32,7 @@ dependencies:
   select_form_field:
     git: git@github.com:tylersavery/select_form_field.git
   fluttertoast: ^8.0.7
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:
