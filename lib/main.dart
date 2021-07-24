@@ -7,6 +7,8 @@ import 'package:listie/theme.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt getIt = GetIt.instance;
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Listie',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

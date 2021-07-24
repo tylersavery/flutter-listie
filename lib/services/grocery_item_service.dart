@@ -18,6 +18,20 @@ class GroceryItemService extends ApiService {
       'name': name,
       'category': GroceryItem.stringFromCategory(category ?? Category.Misc),
       'purchased': false,
+      'starred': false,
+    };
+
+    final data = await this.post('/items', params);
+    return GroceryItem.fromJson(data);
+  }
+
+  Future<GroceryItem> createFromItem(GroceryItem item) async {
+    final params = {
+      'name': item.name,
+      'category':
+          GroceryItem.stringFromCategory(item.category ?? Category.Misc),
+      'purchased': item.purchased,
+      'starred': item.starred,
     };
 
     final data = await this.post('/items', params);
@@ -29,6 +43,7 @@ class GroceryItemService extends ApiService {
       'name': item.name,
       'category': item.categoryValue,
       'purchased': item.purchased,
+      'started': item.starred,
     };
 
     final data = await this.put('/items/$id', params);
