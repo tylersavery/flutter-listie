@@ -83,6 +83,7 @@ class _GroceryListState extends State<GroceryList> {
       onRefresh: _refreshData,
       child: ListView.builder(
         itemCount: groups.length,
+        padding: EdgeInsets.only(bottom: 120),
         itemBuilder: (ctx, index) {
           final key = groups.keys.elementAt(index);
           final group = groups[key];

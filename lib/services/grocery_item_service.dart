@@ -16,7 +16,7 @@ class GroceryItemService extends ApiService {
   Future<GroceryItem> create(String name, Category? category) async {
     final params = {
       'name': name,
-      'category': GroceryItem.stringFromCategory(category!),
+      'category': GroceryItem.stringFromCategory(category ?? Category.Misc),
       'purchased': false,
     };
 
@@ -41,6 +41,14 @@ class GroceryItemService extends ApiService {
 
   Future<void> unpurchaseItem(GroceryItem item) async {
     await this.post('/items/${item.id}/unpurchase');
+  }
+
+  Future<void> starItem(GroceryItem item) async {
+    await this.post('/items/${item.id}/star');
+  }
+
+  Future<void> unstarItem(GroceryItem item) async {
+    await this.post('/items/${item.id}/unstar');
   }
 
   Future<void> deleteItem(GroceryItem item) async {

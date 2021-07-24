@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listie/components/grocery_item_checkbox.dart';
+import 'package:listie/components/grocery_item_star.dart';
 import 'package:listie/models/grocery_item.dart';
 import 'package:listie/providers/grocery_item_form_provider.dart';
 import 'package:listie/providers/grocery_list_provider.dart';
@@ -79,6 +80,12 @@ class _GroceryItemCardState extends State<GroceryItemCard> {
                     // ),
                   ],
                 ),
+              ),
+              GroceryItemStar(
+                groceryItem: widget.groceryItem,
+                onUpdate: () {
+                  widget.onUpdate();
+                },
               ),
               GroceryItemCheckbox(
                 groceryItem: widget.groceryItem,

@@ -23,6 +23,7 @@ class GroceryItem {
   String name = "";
   Category? category;
   bool purchased = false;
+  bool starred = false;
 
   GroceryItem() {
     //TODO: Maybe set some additonal default here?
@@ -35,6 +36,7 @@ class GroceryItem {
         ? GroceryItem.categoryFromString(json['category'])
         : Category.Misc;
     this.purchased = json['purchased'] != null ? json['purchased'] : false;
+    this.starred = json['starred'] != null ? json['starred'] : false;
   }
 
   get categoryLabel {

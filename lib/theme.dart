@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeColors {
-  static const primary = Colors.teal;
+  static const primary = Colors.indigo;
 
   static const text = Colors.black87;
   static const textLight = Colors.black54;
