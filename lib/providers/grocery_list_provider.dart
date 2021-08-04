@@ -12,6 +12,7 @@ abstract class GroceryListProvider extends ChangeNotifier {
   // Getters
   List<GroceryItem> get items;
   Map<Category?, List<GroceryItem>> get groupedItems;
+  List<GroceryItem> get sortedItems;
 
   // Operations
   Future<void> fetchItems();
@@ -80,5 +81,13 @@ class GroceryListProviderImplementation extends GroceryListProvider {
 
     groceryItemService.deleteItem(item);
     notifyListeners();
+  }
+
+  @override
+  List<GroceryItem> get sortedItems {
+    final sortedItems = [...this.items];
+
+    sortedItems.sort((a, b) => a.name.compareTo(b.name));
+    return sortedItems;
   }
 }

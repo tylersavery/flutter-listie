@@ -16,6 +16,7 @@ class _ListScreenState extends State<ListScreen> {
   final listProvider = getIt<GroceryListProvider>();
 
   bool hidePurchased = false;
+  bool categorized = true;
 
   void _handleAddItem() {
     getIt<GroceryItemFormProvider>().clearItem();
@@ -39,8 +40,17 @@ class _ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My List"),
+        title: Text("Listie"),
+        centerTitle: true,
         actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  categorized = !categorized;
+                });
+              },
+              icon: Icon(
+                  !categorized ? Icons.sort_outlined : Icons.sort_by_alpha)),
           IconButton(
             onPressed: () {
               setState(() {
@@ -48,9 +58,7 @@ class _ListScreenState extends State<ListScreen> {
               });
             },
             icon: Icon(
-              hidePurchased
-                  ? Icons.remove_red_eye_outlined
-                  : Icons.remove_red_eye,
+              !hidePurchased ? Icons.check_box : Icons.check_box_outline_blank,
             ),
           ),
         ],
@@ -62,6 +70,7 @@ class _ListScreenState extends State<ListScreen> {
       body: GroceryList(
         handleAddItem: _handleAddItem,
         hidePurchased: hidePurchased,
+        categorized: categorized,
       ),
     );
   }

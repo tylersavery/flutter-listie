@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: ThemeColors.primary,
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.dark,
+        ),
       ),
       routes: {
         '/': (ctx) => ListScreen(),

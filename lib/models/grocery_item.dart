@@ -5,6 +5,7 @@ enum Category {
   Frozen,
   Aisle,
   Household,
+  Hardware,
   Misc,
 }
 
@@ -15,6 +16,7 @@ const GroceryItemCategoryMap = {
   Category.Frozen: 'frozen',
   Category.Aisle: 'aisle',
   Category.Household: 'household',
+  Category.Hardware: 'hardware',
   Category.Misc: 'misc',
 };
 

@@ -53,6 +53,7 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
       Category.Frozen,
       Category.Aisle,
       Category.Household,
+      Category.Hardware,
       Category.Misc,
     ];
 
@@ -96,6 +97,7 @@ class _AddGroceryItemScreenState extends State<AddGroceryItemScreen> {
                       formProvider.setName(value);
                     },
                     validator: formProvider.validateName,
+                    textCapitalization: TextCapitalization.words,
                   ),
                   SelectFormField(
                     type: SelectFormFieldType.dropdown, // or can be dialog

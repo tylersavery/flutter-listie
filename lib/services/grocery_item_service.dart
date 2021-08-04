@@ -43,7 +43,7 @@ class GroceryItemService extends ApiService {
       'name': item.name,
       'category': item.categoryValue,
       'purchased': item.purchased,
-      'started': item.starred,
+      'starred': item.starred || false,
     };
 
     final data = await this.put('/items/$id', params);

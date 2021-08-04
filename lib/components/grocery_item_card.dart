@@ -7,14 +7,19 @@ import 'package:listie/providers/grocery_list_provider.dart';
 import 'package:listie/screens/add_grocery_item_screen.dart';
 import 'package:listie/theme.dart';
 import 'package:listie/main.dart';
+import 'package:listie/utils/formatting.dart';
 
 class GroceryItemCard extends StatefulWidget {
   final GroceryItem groceryItem;
   final Function onUpdate;
+  final bool showCategory;
 
-  const GroceryItemCard(
-      {Key? key, required this.groceryItem, required this.onUpdate})
-      : super(key: key);
+  const GroceryItemCard({
+    Key? key,
+    required this.groceryItem,
+    required this.onUpdate,
+    this.showCategory = false,
+  }) : super(key: key);
 
   @override
   _GroceryItemCardState createState() => _GroceryItemCardState();
@@ -68,16 +73,19 @@ class _GroceryItemCardState extends State<GroceryItemCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.groceryItem.name,
+                      normaliseName(widget.groceryItem.name),
                       style: ThemeText.bodyText,
                     ),
-                    // SizedBox(
-                    //   height: 4,
-                    // ),
-                    // Text(
-                    //   widget.groceryItem.categoryLabel,
-                    //   style: ThemeText.caption,
-                    // ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    if (widget.showCategory)
+                      Text(
+                        widget.groceryItem.categoryLabel
+                            .toString()
+                            .toUpperCase(),
+                        style: ThemeText.caption,
+                      ),
                   ],
                 ),
               ),
